@@ -24,8 +24,8 @@ with st.sidebar.form('追加'):
         df.to_csv('words.csv',index=False,encoding='utf-8')
         st.experimental_rerun()
 with st.sidebar.form('del'):
-    choice=st.number_input('Delete',step=1)
-    delete = st.form_submit_button("Delete")
+    choice=st.number_input('削除する番号を選択して下さい',step=1)
+    delete = st.form_submit_button("削除")
     if delete:
         if len(df)!=0:
             df=df.drop(df.index[[choice]])
