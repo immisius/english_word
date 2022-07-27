@@ -3,15 +3,12 @@ from random import choices
 import pandas as pd
 import datetime
 import streamlit as st
-from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode
 import re
 
 df=pd.read_csv('words.csv',encoding='utf-8')
-gb = GridOptionsBuilder.from_dataframe(df, editable=True)
-grid = AgGrid(df, gridOptions=gb.build(), updateMode=GridUpdateMode.VALUE_CHANGED)
 
 # 修正が反映される
-st.dataframe(grid['data'])
+st.dataframe(df)
 
 with st.sidebar.form('追加'):
     words=st.text_input('単語', '')
