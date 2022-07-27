@@ -29,9 +29,8 @@ with st.sidebar.form('del'):
             st.experimental_rerun()
 csv=df.to_csv(index=False).encode('utf-8')
 st.sidebar.download_button('単語帳をダウンロード',data=csv,file_name='wordlist.csv')
-uploaded_file=st.sidebar.file_uploader('単語帳をアップロードして追加')
+uploaded_file=st.sidebar.file_uploader('単語帳をアップロードして追加',accept_multiple_files=False)
 if uploaded_file is not None:
     df_add=pd.read_csv(uploaded_file,encoding='utf-8')
     df=pd.concat([df_add,df])
     df.to_csv('words.csv',index=False,encoding='utf-8')
-    uploaded_file=None
