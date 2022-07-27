@@ -38,11 +38,13 @@ with st.sidebar.form('del'):
             st.experimental_rerun()
 csv=df.to_csv(index=False).encode('utf-8')
 st.sidebar.download_button('単語帳をダウンロード',data=csv,file_name='wordlist.csv')
-uploaded_file=st.sidebar.file_uploader('単語帳をアップロードして追加',accept_multiple_files=False,type='csv')
-if uploaded_file is not None:
-    df_add=pd.read_csv(uploaded_file,encoding='utf-8')
-    df=pd.concat([df_add,df])
-    df.to_csv('words.csv',index=False,encoding='utf-8')
-    uploaded_file.close()
-    uploaded_file=None
-    st.experimental_rerun()
+with st.sidebar.form('upload'):
+    uploaded_file=st.file_uploader('単語帳をアップロードして追加',accept_multiple_files=False,type='csv')
+    send=st.form_submit_button('アップロード')
+    if send:
+        df_add=pd.read_csv(uploaded_file,encoding='utf-8')
+        df=pd.concat([df_add,df])
+        df.to_csv('words.csv',index=False,encoding='utf-8')
+        uploaded_file.close()
+        uploaded_file=None
+        st.experimental_rerun()
