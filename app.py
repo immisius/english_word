@@ -5,8 +5,10 @@ import datetime
 import streamlit as st
 import re
 
+columns=['単語','訳語','類語','タイプ','時刻']
 df=pd.read_csv('words.csv',encoding='utf-8')
-df=df.reindex(columns=['単語', '訳語', 'タイプ','時刻']).drop_duplicates()
+df=df.reindex(columns=columns).drop_duplicates()
+df=df.reset_index(drop=True)
 # 修正が反映される
 
 st.table(df)
@@ -14,17 +16,23 @@ st.table(df)
 with st.sidebar.form('追加'):
     words=st.text_input(label='単語')
     type=st.radio('どのタイプですか',('知らない単語','覚えたい表現（訳語いらない）'))
+
+    ruigo=st.text_input(label='類語')
+    st.markdown('多語を登録する場合は『,（カンマ）』で区切って下さい')
+    ruigo=ruigo.split(',')
+
     japa=st.text_input(label='訳語')
     st.markdown('多義を登録する場合は『、（読点）』で区切って下さい')
     if type=='知らない単語':
         japa=re.sub('(\s*)','',japa)
     japa=japa.split('、')
+
     submitted = st.form_submit_button("Submit")
     if submitted:
         dt_now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         if type=='覚えたい表現（訳語いらない）':
             japa=None
-        df=pd.concat([pd.DataFrame([[words,type,japa,dt_now]],columns=['単語','タイプ','訳語','時刻']),df])
+        df=pd.concat([pd.DataFrame([[words,type,japa,dt_now,ruigo]],columns=['単語','タイプ','訳語','時刻','類語']),df])
         df.to_csv('words.csv',index=False,encoding='utf-8')
         words=st.empty()
         japa=st.empty()
