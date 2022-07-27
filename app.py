@@ -12,8 +12,8 @@ df=df.reindex(columns=columns).drop_duplicates()
 df=df.reset_index(drop=True)
 # 修正が反映される
 
-AgGrid(df,theme='streamlit', fit_columns_on_grid_load=True)
-
+# AgGrid(df,theme='streamlit', fit_columns_on_grid_load=True)
+st.dataframe(df)
 with st.sidebar.form('追加'):
     words=st.text_input(label='単語')
     type=st.radio('どのタイプですか',('知らない単語','覚えたい表現（訳語いらない）'))
