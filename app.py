@@ -1,3 +1,4 @@
+import csv
 from random import choices
 import pandas as pd
 import datetime
@@ -24,7 +25,8 @@ with st.sidebar.form('del'):
         df=df.drop(df.index[[choice]])
         df.to_csv('words.csv',index=False)
         st.experimental_rerun()
-st.sidebar.download_button('単語帳をダウンロード',data=df,file_name='wordlist.csv')
+csv=df.to_csv().encode('utd-8')
+st.sidebar.download_button('単語帳をダウンロード',data=csv,file_name='wordlist.csv')
 uploaded_file=st.sidebar.file_uploader('単語帳をアップロードして追加')
 if uploaded_file is not None:
     df_add=pd.read_csv(uploaded_file)
