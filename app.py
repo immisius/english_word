@@ -4,6 +4,7 @@ import pandas as pd
 import datetime
 import streamlit as st
 import re
+from st_aggrid import AgGrid
 
 columns=['単語','訳語','類語','タイプ','時刻']
 df=pd.read_csv('words.csv',encoding='utf-8')
@@ -11,7 +12,7 @@ df=df.reindex(columns=columns).drop_duplicates()
 df=df.reset_index(drop=True)
 # 修正が反映される
 
-st.table(df)
+AgGrid(df,theme='streamlit', fit_columns_on_grid_load=True)
 
 with st.sidebar.form('追加'):
     words=st.text_input(label='単語')
