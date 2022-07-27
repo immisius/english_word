@@ -6,8 +6,9 @@ import streamlit as st
 import re
 
 df=pd.read_csv('words.csv',encoding='utf-8')
-df=df.reindex(columns=['単語', '訳語', 'タイプ','時刻'])
+df=df.reindex(columns=['単語', '訳語', 'タイプ','時刻']).drop_duplicates()
 # 修正が反映される
+
 st.table(df)
 
 with st.sidebar.form('追加'):
