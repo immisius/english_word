@@ -4,13 +4,13 @@ import pandas as pd
 import datetime
 df=pd.read_csv('words.csv',encoding='utf-8')
 import streamlit as st
+from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode
 gb = GridOptionsBuilder.from_dataframe(df, editable=True)
 grid = AgGrid(df, gridOptions=gb.build(), updateMode=GridUpdateMode.VALUE_CHANGED)
 
 # 修正が反映される
 st.dataframe(grid['data'])
 import re
-from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode
 with st.sidebar.form('追加'):
     words=st.text_input('単語', '')
     type=st.radio('どのタイプですか',('知らない単語','覚えたい表現'))
