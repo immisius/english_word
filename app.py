@@ -10,6 +10,7 @@ with st.sidebar.form('追加'):
     words=st.text_input('単語', '')
     type=st.radio('どのタイプですか',('知らない単語','覚えたい表現'))
     japa=st.text_input('訳語', '')
+    st.markdown('多義を登録する場合は『、（読点）』で区切って下さい')
     japa=re.sub('(\s*)','',japa)
     japa=japa.split('、')
     submitted = st.form_submit_button("Submit")
