@@ -22,9 +22,10 @@ with st.sidebar.form('del'):
     choice=st.number_input('Delete',step=1)
     delete = st.form_submit_button("Delete")
     if delete:
-        df=df.drop(df.index[[choice]])
-        df.to_csv('words.csv',index=False,encoding='utf-8')
-        st.experimental_rerun()
+        if len(df)!=0:
+            df=df.drop(df.index[[choice]])
+            df.to_csv('words.csv',index=False,encoding='utf-8')
+            st.experimental_rerun()
 csv=df.to_csv(index=False).encode('utf-8')
 st.sidebar.download_button('単語帳をダウンロード',data=csv,file_name='wordlist.csv')
 uploaded_file=st.sidebar.file_uploader('単語帳をアップロードして追加')
