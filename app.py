@@ -33,4 +33,3 @@ if uploaded_file is not None:
     df=pd.concat([df_add,df])
     df.to_csv('words.csv',index=False)
     uploaded_file=None
-    st.experimental_rerun()
