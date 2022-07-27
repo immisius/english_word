@@ -22,6 +22,8 @@ with st.sidebar.form('追加'):
         dt_now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         df=pd.concat([pd.DataFrame([[words,type,japa,dt_now]],columns=['単語','タイプ','訳語','時刻']),df])
         df.to_csv('words.csv',index=False,encoding='utf-8')
+        words=st.empty()
+        japa=st.empty()
         st.experimental_rerun()
 with st.sidebar.form('del'):
     choice=st.number_input('削除する番号を選択して下さい',step=1)
