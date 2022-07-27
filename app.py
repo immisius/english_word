@@ -45,6 +45,5 @@ with st.sidebar.form('upload'):
         df_add=pd.read_csv(uploaded_file,encoding='utf-8')
         df=pd.concat([df_add,df])
         df.to_csv('words.csv',index=False,encoding='utf-8')
-        uploaded_file.close()
-        uploaded_file=None
+        uploaded_file=st.empty()
         st.experimental_rerun()
